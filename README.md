@@ -1,2 +1,221 @@
-# EEEEEE
-EEEEEE
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>約會邀請函 🎬✨</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap');
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-pink-100 via-purple-50 to-indigo-100">
+
+  <div class="w-full max-w-md bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border border-white/50 overflow-hidden transition-all duration-300">
+    
+    <!-- 頂部粉紫漸層裝飾條 -->
+    <div class="h-2 w-full bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400"></div>
+
+    <!-- Content Card -->
+    <div class="p-6 md:p-8">
+      
+      <!-- STEP 1: 第一頁單純詢問意願 + 閃避按鈕 -->
+      <div id="step1" class="space-y-6 text-center">
+        <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-tr from-pink-500 to-purple-500 flex items-center justify-center text-white text-4xl shadow-xl shadow-pink-500/30">
+          🎬
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">想不想吃飯或下午茶哩？<br>順便看個電影 🎬✨</h1>
+          <p class="text-sm text-slate-500 mt-2">正在為你整理最適合的約會行程與清單。</p>
+        </div>
+
+        <!-- 按鈕區塊 (好啊 + 躲避按鈕) -->
+        <div class="relative min-h-[120px] flex items-center justify-center pt-2" id="btnArea">
+          <button id="yesBtn" onclick="goToStep(2)" class="px-8 py-3.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold text-lg rounded-full shadow-lg shadow-pink-500/40 hover:shadow-pink-500/60 transition-all duration-300 transform active:scale-95 z-10">
+            好啊，約！✨
+          </button>
+          
+          <button id="noBtn" onmouseenter="dodge()" onclick="dodge()" class="absolute px-5 py-2.5 bg-slate-200 text-slate-600 font-medium text-sm rounded-full transition-all duration-150 ease-out whitespace-nowrap shadow-sm">
+            沒空欸 😜
+          </button>
+        </div>
+
+        <p class="text-xs font-mono text-center text-slate-400" id="dodgeCounter">// dodge handler called 0 times</p>
+      </div>
+
+      <!-- STEP 2: 美食喜好選擇 -->
+      <div id="step2" class="hidden space-y-6">
+        <div class="text-center">
+          <span class="text-xs font-semibold px-3 py-1 bg-pink-100 text-pink-600 rounded-full">STEP 1 / 4</span>
+          <h2 class="text-xl font-bold text-slate-800 mt-2">想吃哪種風格？ 🍕</h2>
+        </div>
+
+        <select id="foodSelect" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-pink-500">
+          <option value="下午茶 / 甜點鬆餅 ☕">下午茶 / 甜點鬆餅 ☕</option>
+          <option value="精緻燒肉 / 和牛燒肉 🥩">精緻燒肉 / 和牛燒肉 🥩</option>
+          <option value="氣氛義式餐酒館 🍝">氣氛義式餐酒館 🍝</option>
+          <option value="早午餐 Brunch 🥪">早午餐 Brunch 🥪</option>
+        </select>
+
+        <button onclick="goToStep(3)" class="w-full py-3.5 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-xl shadow-lg shadow-pink-500/30 hover:opacity-95 transition-all">
+          下一步：選電影 🎬 ➔
+        </button>
+      </div>
+
+      <!-- STEP 3: 電影類型選擇 -->
+      <div id="step3" class="hidden space-y-6">
+        <div class="text-center">
+          <span class="text-xs font-semibold px-3 py-1 bg-pink-100 text-pink-600 rounded-full">STEP 2 / 4</span>
+          <h2 class="text-xl font-bold text-slate-800 mt-2">想看哪種電影？ 🎬</h2>
+        </div>
+
+        <select id="movieSelect" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-pink-500">
+          <option value="最新院線熱門大片 🍿">最新院線熱門大片 🍿</option>
+          <option value="懸疑燒腦 / 驚悚片 🧠">懸疑燒腦 / 驚悚片 🧠</option>
+          <option value="溫馨喜劇 / 動畫電影 🧸">溫馨喜劇 / 動畫電影 🧸</option>
+          <option value="現場看預告再決定 🎥">現場看預告再決定 🎥</option>
+        </select>
+
+        <button onclick="goToStep(4)" class="w-full py-3.5 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-xl shadow-lg shadow-pink-500/30 hover:opacity-95 transition-all">
+          下一步：選日期 📅 ➔
+        </button>
+      </div>
+
+      <!-- STEP 4: 日期與時段選擇 -->
+      <div id="step4" class="hidden space-y-6">
+        <div class="text-center">
+          <span class="text-xs font-semibold px-3 py-1 bg-pink-100 text-pink-600 rounded-full">STEP 3 / 4</span>
+          <h2 class="text-xl font-bold text-slate-800 mt-2">什麼時候方便哩？ 📅</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">選擇方便的日期：</label>
+            <input type="date" id="dateInput" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-pink-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">偏好時段：</label>
+            <select id="timeSelect" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-pink-500">
+              <option value="下午茶 + 晚場電影">下午茶 + 晚場電影 ☕🎬</option>
+              <option value="午餐 + 下午電影">午餐 + 下午電影 🍝🎥</option>
+              <option value="晚餐 + 宵夜電影">晚餐 + 宵夜電影 🥩🍿</option>
+            </select>
+          </div>
+        </div>
+
+        <button onclick="generatePass()" class="w-full py-3.5 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-xl shadow-lg shadow-pink-500/30 hover:opacity-95 transition-all">
+          生成專屬通行證 🚀
+        </button>
+      </div>
+
+      <!-- STEP 5: 約定成功通行證 -->
+      <div id="step5" class="hidden space-y-5 text-center">
+        <div>
+          <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-green-100 text-green-700 font-semibold">✔ CONFIRMED</span>
+          <h2 class="text-2xl font-bold text-slate-800 mt-2">約定成功！🎉</h2>
+          <p class="text-xs text-slate-500">通行證已生成，記得傳給我！</p>
+        </div>
+
+        <!-- Ticket Design -->
+        <div class="bg-white border-2 border-dashed border-pink-300 rounded-2xl p-5 text-left shadow-sm space-y-3 relative overflow-hidden">
+          <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+            <span class="font-bold text-pink-600 text-sm tracking-wide">FOODIE & MOVIE PASS 🎫</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 bg-green-100 text-green-600 rounded">SUCCESS</span>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between"><span class="text-slate-400">GUEST</span><span class="font-semibold text-slate-700">Cute & Special VIP</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">FOOD STYLE</span><span id="resFood" class="font-semibold text-slate-800">-</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">MOVIE GENRE</span><span id="resMovie" class="font-semibold text-slate-800">-</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">DATE</span><span id="resDate" class="font-semibold text-pink-600">-</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">TIME SLOT</span><span id="resTime" class="font-semibold text-slate-800">-</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">HOST TASK</span><span class="font-semibold text-indigo-600">訂位、買影票與買單 💳</span></div>
+          </div>
+
+          <div class="border-t border-slate-100 pt-3 text-center">
+            <p class="text-[11px] text-pink-400 font-medium">期待我們的約會時光 ✨</p>
+          </div>
+        </div>
+
+        <button onclick="copyMsg()" class="w-full py-3 bg-pink-500 text-white font-semibold rounded-xl shadow-md hover:bg-pink-600 transition-all text-sm">
+          📋 複製邀請訊息
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let dodgeCount = 0;
+    let yesScale = 1;
+
+    // 設定預設日期為明天
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById('dateInput').value = tomorrow.toISOString().split('T')[0];
+
+    function dodge() {
+      dodgeCount++;
+      const noBtn = document.getElementById('noBtn');
+      const yesBtn = document.getElementById('yesBtn');
+      const dodgeCounter = document.getElementById('dodgeCounter');
+
+      // YES 按鈕持續放大
+      yesScale += 0.15;
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      // 計算 NO 按鈕隨機跳動位置
+      const randomX = (Math.random() - 0.5) * 200;
+      const randomY = (Math.random() - 0.5) * 80;
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+      dodgeCounter.innerText = `// dodge handler called ${dodgeCount} times`;
+
+      if (dodgeCount >= 3) {
+        noBtn.innerText = "只能按「好啊」囉 😜";
+      }
+    }
+
+    function goToStep(step) {
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step3').classList.add('hidden');
+      document.getElementById('step4').classList.add('hidden');
+      document.getElementById('step5').classList.add('hidden');
+
+      document.getElementById(`step${step}`).classList.remove('hidden');
+    }
+
+    function generatePass() {
+      const food = document.getElementById('foodSelect').value;
+      const movie = document.getElementById('movieSelect').value;
+      const date = document.getElementById('dateInput').value;
+      const time = document.getElementById('timeSelect').value;
+
+      document.getElementById('resFood').innerText = food;
+      document.getElementById('resMovie').innerText = movie;
+      document.getElementById('resDate').innerText = date || "近期擇日";
+      document.getElementById('resTime').innerText = time;
+
+      goToStep(5);
+    }
+
+    function copyMsg() {
+      const food = document.getElementById('resFood').innerText;
+      const movie = document.getElementById('resMovie').innerText;
+      const date = document.getElementById('resDate').innerText;
+      const time = document.getElementById('resTime').innerText;
+
+      const text = `預約好囉！這是我的美食與電影通行證 🎫✨\n\n🍽️ 美食：${food}\n🎬 電影：${movie}\n📅 日期：${date}\n⏰ 時段：${time}\n\n期待當天見！❤️`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert("已複製邀請訊息！可以直接貼在 Line 傳給我囉～");
+      });
+    }
+  </script>
+</body>
+</html>
